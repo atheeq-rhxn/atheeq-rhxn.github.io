@@ -3,14 +3,15 @@ import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { ScrollerLayout } from "./layouts/scroller-layout";
 import { TileLayout } from "./layouts/tile-layout";
+import { GridLayout } from "./layouts/grid-layout";
 
 // ============================================================================
 // MAIN COMPONENT
 // ============================================================================
 export function MangowcLayouts() {
-	const [activeLayout, setActiveLayout] = useState<"tiling" | "scroller">(
-		"tiling",
-	);
+	const [activeLayout, setActiveLayout] = useState<
+		"tiling" | "scroller" | "grid"
+	>("tiling");
 	const [orientation, setOrientation] = useState<"horizontal" | "vertical">(
 		"horizontal",
 	);
@@ -43,6 +44,18 @@ export function MangowcLayouts() {
 						)}
 					>
 						Scroller
+					</button>
+					<button
+						type="button"
+						onClick={() => setActiveLayout("grid")}
+						className={cn(
+							"cursor-pointer rounded-full px-4 py-1.5 font-medium text-sm transition-all",
+							activeLayout === "grid"
+								? "bg-background text-foreground shadow-sm"
+								: "text-muted-foreground hover:text-foreground",
+						)}
+					>
+						Grid
 					</button>
 				</div>
 
@@ -80,6 +93,7 @@ export function MangowcLayouts() {
 				{activeLayout === "scroller" && (
 					<ScrollerLayout orientation={orientation} />
 				)}
+				{activeLayout === "grid" && <GridLayout orientation={orientation} />}
 			</div>
 		</div>
 	);
