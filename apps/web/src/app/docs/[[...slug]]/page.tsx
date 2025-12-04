@@ -5,9 +5,9 @@ import {
 	DocsPage,
 	DocsTitle,
 } from "fumadocs-ui/page";
+import { Pencil } from "lucide-react";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { Pencil } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { source } from "@/lib/source";
 import { getMDXComponents } from "@/mdx-components";
@@ -30,11 +30,11 @@ export default async function Page(props: PageProps<"/docs/[[...slug]]">) {
 			<DocsBody>
 				<Button asChild variant="outline" size="sm">
 					<a
-						href={`https://github.com/atheeq-rhxn/mangowc-web/blob/main/apps/web/content/docs/${page.path}.mdx`}
+						href={`https://github.com/atheeq-rhxn/mangowc-web/blob/main/apps/web/content/docs/${page.path}`}
 						rel="noreferrer noopener"
 						target="_blank"
 					>
-						<Pencil className="w-4 h-4" />
+						<Pencil className="h-4 w-4" />
 						Edit
 					</a>
 				</Button>

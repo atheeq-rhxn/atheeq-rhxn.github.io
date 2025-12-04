@@ -1,9 +1,9 @@
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import { RootProvider } from "fumadocs-ui/provider/next";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "../index.css";
+import { AppProviders } from "@/components/app-providers";
 import Providers from "@/components/providers";
 
 const SITE_TITLE = "MangoWC - Lightweight Wayland Compositor";
@@ -129,9 +129,9 @@ export default function RootLayout({
 				>
 					Skip to main content
 				</a>
-				<RootProvider>
+				<AppProviders>
 					<Providers>{children}</Providers>
-				</RootProvider>
+				</AppProviders>
 				<Analytics />
 				<SpeedInsights />
 				<script
