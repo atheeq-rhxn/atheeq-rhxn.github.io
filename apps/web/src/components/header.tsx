@@ -6,6 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { ModeToggle } from "./mode-toggle";
+import { SponsorButton } from "./sponsor-button";
 
 // ... (MenuIcon and CloseIcon components remain the same) ...
 function MenuIcon({ className }: { className?: string }) {
@@ -130,6 +131,7 @@ export function Header() {
 							</svg>
 						</a>
 					</div>
+					<SponsorButton />
 
 					{/* Mobile menu button */}
 					<button
