@@ -11,32 +11,35 @@ You can configure each display output individually using the `monitorrule` keywo
 
 **Syntax:**
 ```ini
-monitorrule=name,mfact,nmaster,layout,transform,scale,x,y,width,height,refreshrate
+monitorrule=name:Values,Parameter:Values,Parameter:Values
 ```
 
 ### Parameters
 
-| Parameter | Description |
-| :--- | :--- |
-| `name` | The output name (e.g., `eDP-1`, `HDMI-A-1`). Use `wlr-randr` to find these. |
-| `mfact` | Master area factor (e.g., `0.55`). |
-| `nmaster` | Number of master windows. |
-| `layout` | Default layout for this monitor (e.g., `tile`, `scroller`). |
-| `transform` | Screen rotation/flip (see table below). |
-| `scale` | UI Scale factor (e.g., `1`, `1.5`). |
-| `x`, `y` | Position coordinates. |
-| `width`, `height` | Resolution width and height. |
-| `refreshrate` | Refresh rate in Hz. |
+| Parameter | Type | Values | Description |
+|-----------|------|--------|-------------|
+| `name` | string | Any | Match by monitor name |
+| `width` | integer | 0-9999 | Monitor width |
+| `height` | integer | 0-9999 | Monitor height |
+| `refresh` | float | 0.001-9999.0 | Monitor refresh rate |
+| `x` | integer | 0-99999 | X position |
+| `y` | integer | 0-99999 | Y position |
+| `scale` | float | 0.01-100.0 | Monitor scale |
+| `vrr` | integer | 0,1 | Enable variable refresh rate | 
+| `rr` | integer | 0-7 | Monitor transform |
 
 ### Transform Values
 
 | Value | Rotation |
 | :--- | :--- |
-| `0` | Normal |
-| `1` | 90° |
-| `2` | 180° |
-| `3` | 270° |
-| `4-7` | Flipped variations |
+| `0` | No transform |
+| `1` | 90° counter-clockwise |
+| `2` | 180° counter-clockwise |
+| `3` | 270° counter-clockwise |
+| `4` | 180° vertical flip |
+| `5` | Flip + 90° counter-clockwise |
+| `6` | Flip + 180° counter-clockwise |
+| `7` | Flip + 270° counter-clockwise |
 
 <Callout type="error" style={{ '--callout-color': '#dc2626' }} title="Critical: XWayland & Coordinates">
 If you use XWayland applications, **never use negative coordinates** for your monitor positions. This is a known XWayland bug that causes click events to malfunction. Always arrange your monitors starting from `0,0` and extending into positive coordinates.
@@ -45,11 +48,11 @@ If you use XWayland applications, **never use negative coordinates** for your mo
 ### Examples
 
 ```ini
-# Laptop display: 1080p, 60Hz, no rotation
-monitorrule=eDP-1,0.55,1,tile,0,1,0,0,1920,1080,60
+# Laptop display: 1080p, 60Hz, positioned at origin
+monitorrule=name:eDP-1,width:1920,height:1080,refresh:60,x:0,y:10
 
-# External monitor: 1440p, 144Hz, positioned to the right
-monitorrule=HDMI-A-1,0.55,1,tile,0,1,1920,0,2560,1440,144
+# Virtual monitor with pattern matching
+monitorrule=name:HEADLESS-.*,width:1920,height:1080,refresh:60,x:1926,y:0,scale:1,rr:0,vrr:0
 ```
 
 ## Tearing (Game Mode)
@@ -112,6 +115,19 @@ mmsg -d enable_monitor,eDP-1
 mmsg -d toggle_monitor,eDP-1
 ```
 
+You can also use `wlr-randr` for monitor management:
+
+```bash
+# Turn off monitor
+wlr-randr --output eDP-1 --off
+
+# Turn on monitor
+wlr-randr --output eDP-1 --on
+
+# Show all monitors
+wlr-randr
+```
+
 ## Screen Scale
 
 ### Not Using Global Scale (Recommended)
@@ -166,3 +182,27 @@ monitorrule=eDP-1,0.55,1,tile,0,1.4,0,0,1920,1080,60
 <Callout type="warn">
 Use a `DISPLAY` other than `1` to avoid conflicting with MangoWC.
 </Callout>
+
+## Virtual Monitors
+
+You can create and manage virtual displays through IPC commands:
+
+```bash
+# Create virtual output
+mmsg -d create_virtual_output
+
+# Destroy all virtual outputs
+mmsg -d destroy_all_virtual_output
+```
+
+You can configure virtual monitors using `wlr-randr`:
+
+```bash
+# Show all monitors
+wlr-randr
+
+# Configure virtual monitor
+wlr-randr --output HEADLESS-1 --pos 1921,0 --scale 1 --custom-mode 1920x1080@60Hz
+```
+
+Virtual monitors can be used for screen sharing with tools like [Sunshine](https://github.com/LizardByte/Sunshine) and [Moonlight](https://github.com/moonlight-stream/moonlight-android), allowing other devices to act as extended monitors.
