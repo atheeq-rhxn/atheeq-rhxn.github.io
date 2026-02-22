@@ -35,7 +35,7 @@ Control the fade-in and fade-out effects for animations.
 animation_fade_in=1
 animation_fade_out=1
 fadein_begin_opacity=0.5
-fadeout_begin_opacity=0.8
+fadeout_begin_opacity=0.5
 ```
 
 - `animation_fade_in`: Enable fade-in effect (0-disable, 1-enable)
@@ -49,7 +49,7 @@ Adjust the zoom ratios for zoom animations.
 
 ```ini
 zoom_initial_ratio=0.3
-zoom_end_ratio=0.7
+zoom_end_ratio=0.8
 ```
 
 - `zoom_initial_ratio`: Initial zoom ratio
@@ -63,16 +63,16 @@ Control the speed of animations (in milliseconds).
 |----------|------|---------|-------------|
 | `animation_duration_move` | integer | 500 | Move animation duration (ms) |
 | `animation_duration_open` | integer | 400 | Open animation duration (ms) |
-| `animation_duration_tag` | integer | 350 | Tag animation duration (ms) |
-| `animation_duration_close` | integer | 800 | Close animation duration (ms) |
+| `animation_duration_tag` | integer | 300 | Tag animation duration (ms) |
+| `animation_duration_close` | integer | 300 | Close animation duration (ms) |
 | `animation_duration_focus` | integer | 0 | Focus change (opacity transition) animation duration (ms) |
 
 ```ini
 # Example duration configuration
 animation_duration_move=500
 animation_duration_open=400
-animation_duration_tag=350
-animation_duration_close=800
+animation_duration_tag=300
+animation_duration_close=300
 animation_duration_focus=0
 ```
 

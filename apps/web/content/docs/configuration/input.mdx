@@ -21,17 +21,21 @@ MangoWC provides granular control over different input devices.
   | :--- | :--- | :--- | :--- |
   | `repeat_rate` | `int` | `25` | How many times a key repeats per second. |
   | `repeat_delay` | `int` | `600` | Delay (ms) before a held key starts repeating. |
-  | `numlockon` | `0` or `1` | `1` | Enable NumLock on startup. |
-  | `xkb_rules_layout` | `string` | - | Keyboard layout code (e.g., `us`, `de`). |
-  | `xkb_rules_options` | `string` | - | XKB options (e.g., `caps:escape`). |
+  | `numlockon` | `0` or `1` | `0` | Enable NumLock on startup. |
+  | `xkb_rules_rules` | `string` | - | XKB rules file (e.g., `evdev`, `base`). Usually auto-detected. |
+  | `xkb_rules_model` | `string` | - | Keyboard model (e.g., `pc104`, `macbook`). |
+  | `xkb_rules_layout` | `string` | - | Keyboard layout code (e.g., `us`, `de`, `us,de`). |
+  | `xkb_rules_variant` | `string` | - | Layout variant (e.g., `dvorak`, `colemak`, `intl`). |
+  | `xkb_rules_options` | `string` | - | XKB options (e.g., `caps:escape`, `ctrl:nocaps`). |
 
   **Example:**
   ```ini
   repeat_rate=40
   repeat_delay=300
   numlockon=1
-  xkb_rules_layout=us
-  xkb_rules_options=caps:escape
+  xkb_rules_layout=us,de
+  xkb_rules_variant=dvorak
+  xkb_rules_options=caps:escape,ctrl:nocaps
   ```
 
 </Tab>
@@ -54,7 +58,7 @@ Specific settings for laptop touchpads. **Note:** Some settings may require a re
 | `disable_while_typing` | `1` | Disable trackpad while typing. |
 | `left_handed` | `0` | Swap left/right buttons. |
 | `middle_button_emulation` | `0` | Emulate middle button. |
-| `swipe_min_threshold` | `20` | Minimum swipe threshold. |
+| `swipe_min_threshold` | `1` | Minimum swipe threshold. |
 
 </Tab>
 
@@ -71,7 +75,7 @@ Configuration for external mice.
 | `accel_speed` | `0.0` | Speed adjustment (-1.0 to 1.0). |
 | `left_handed` | `0` | Swap left and right buttons. |
 | `middle_button_emulation` | `0` | Emulate middle button. |
-| `swipe_min_threshold` | `20` | Minimum swipe threshold. |
+| `swipe_min_threshold` | `1` | Minimum swipe threshold. |
 | `send_events_mode` | `0` | `0` (Enabled), `1` (Disabled), `2` (Disabled on external mouse). |
 | `button_map` | `0` | `0` (Left/right/middle), `1` (Left/middle/right). |
 
