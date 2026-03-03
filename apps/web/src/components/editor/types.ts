@@ -29,6 +29,8 @@ export type LayoutType =
 // Layout metadata
 // ---------------------------------------------------------------------------
 
+export type SectionId = "general" | "gaps" | "master" | "centerTile" | "scroller" | "overview";
+
 export interface LayoutInfo {
   name: string;
   description: string;
@@ -37,6 +39,7 @@ export interface LayoutInfo {
   hasScroller: boolean;
   hasCenterTile: boolean;
   hasOverview: boolean;
+  sections: SectionId[];
 }
 
 export const LAYOUTS: Record<LayoutType, LayoutInfo> = {
@@ -48,6 +51,7 @@ export const LAYOUTS: Record<LayoutType, LayoutInfo> = {
     hasScroller: false,
     hasCenterTile: false,
     hasOverview: false,
+    sections: ["general", "gaps", "master"],
   },
   "vertical-tile": {
     name: "Vertical Tile",
@@ -57,6 +61,7 @@ export const LAYOUTS: Record<LayoutType, LayoutInfo> = {
     hasScroller: false,
     hasCenterTile: false,
     hasOverview: false,
+    sections: ["general", "gaps", "master"],
   },
   grid: {
     name: "Grid",
@@ -66,6 +71,7 @@ export const LAYOUTS: Record<LayoutType, LayoutInfo> = {
     hasScroller: false,
     hasCenterTile: false,
     hasOverview: false,
+    sections: ["general", "gaps"],
   },
   "vertical-grid": {
     name: "Vertical Grid",
@@ -75,6 +81,7 @@ export const LAYOUTS: Record<LayoutType, LayoutInfo> = {
     hasScroller: false,
     hasCenterTile: false,
     hasOverview: false,
+    sections: ["general", "gaps"],
   },
   scroller: {
     name: "Scroller",
@@ -84,6 +91,7 @@ export const LAYOUTS: Record<LayoutType, LayoutInfo> = {
     hasScroller: true,
     hasCenterTile: false,
     hasOverview: false,
+    sections: ["general", "gaps", "scroller"],
   },
   "vertical-scroller": {
     name: "Vert. Scroller",
@@ -93,6 +101,7 @@ export const LAYOUTS: Record<LayoutType, LayoutInfo> = {
     hasScroller: true,
     hasCenterTile: false,
     hasOverview: false,
+    sections: ["general", "gaps", "scroller"],
   },
   monocle: {
     name: "Monocle",
@@ -102,6 +111,7 @@ export const LAYOUTS: Record<LayoutType, LayoutInfo> = {
     hasScroller: false,
     hasCenterTile: false,
     hasOverview: false,
+    sections: ["general"],
   },
   deck: {
     name: "Deck",
@@ -111,6 +121,7 @@ export const LAYOUTS: Record<LayoutType, LayoutInfo> = {
     hasScroller: false,
     hasCenterTile: false,
     hasOverview: false,
+    sections: ["general", "gaps", "master"],
   },
   "vertical-deck": {
     name: "Vertical Deck",
@@ -120,6 +131,7 @@ export const LAYOUTS: Record<LayoutType, LayoutInfo> = {
     hasScroller: false,
     hasCenterTile: false,
     hasOverview: false,
+    sections: ["general", "gaps", "master"],
   },
   "center-tile": {
     name: "Center Tile",
@@ -129,6 +141,7 @@ export const LAYOUTS: Record<LayoutType, LayoutInfo> = {
     hasScroller: false,
     hasCenterTile: true,
     hasOverview: false,
+    sections: ["general", "gaps", "master", "centerTile"],
   },
   "right-tile": {
     name: "Right Tile",
@@ -138,6 +151,7 @@ export const LAYOUTS: Record<LayoutType, LayoutInfo> = {
     hasScroller: false,
     hasCenterTile: false,
     hasOverview: false,
+    sections: ["general", "gaps", "master"],
   },
   tgmix: {
     name: "TGMix",
@@ -147,6 +161,7 @@ export const LAYOUTS: Record<LayoutType, LayoutInfo> = {
     hasScroller: false,
     hasCenterTile: false,
     hasOverview: false,
+    sections: ["general", "gaps", "master"],
   },
   overview: {
     name: "Overview",
@@ -156,6 +171,7 @@ export const LAYOUTS: Record<LayoutType, LayoutInfo> = {
     hasScroller: false,
     hasCenterTile: false,
     hasOverview: true,
+    sections: ["general", "overview"],
   },
 };
 
