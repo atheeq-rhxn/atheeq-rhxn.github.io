@@ -33,7 +33,7 @@ The Scroller layout positions windows in a scrollable strip, similar to PaperWM.
 | Setting | Default | Description |
 | :--- | :--- | :--- |
 | `scroller_structs` | `20` | Width reserved on sides when window ratio is 1. |
-| `scroller_default_proportion` | `0.9` | Default width proportion for new windows. |
+| `scroller_default_proportion` | `0.8` | Default width proportion for new windows. |
 | `scroller_focus_center` | `0` | Always center the focused window (1 = enable). |
 | `scroller_prefer_center` | `0` | Center focused window only if it was outside the view. |
 | `scroller_prefer_overspread` | `1` | Allow windows to overspread when there's extra space. |
@@ -42,12 +42,20 @@ The Scroller layout positions windows in a scrollable strip, similar to PaperWM.
 | `scroller_ignore_proportion_single` | `1` | Ignore proportion adjustments for single windows. |
 | `scroller_default_proportion_single` | `1.0` | Default proportion for single windows in scroller. |
 
+<Callout type="warning">
+  `scroller_prefer_overspread`, `scroller_focus_center`, and `scroller_prefer_center` interact with each other. Their priority order is:
+
+  **scroller_prefer_overspread > scroller_focus_center > scroller_prefer_center**
+
+  To ensure a lower-priority setting takes effect, you must set all higher-priority options to `0`.
+</Callout>
+
 ```ini
 # Example scroller configuration
 scroller_structs=20
-scroller_default_proportion=0.9
+scroller_default_proportion=0.8
 scroller_focus_center=0
-scroller_prefer_center=1
+scroller_prefer_center=0
 scroller_prefer_overspread=1
 edge_scroller_pointer_focus=1
 scroller_default_proportion_single=1.0
