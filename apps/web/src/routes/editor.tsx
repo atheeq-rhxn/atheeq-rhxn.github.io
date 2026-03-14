@@ -1,7 +1,9 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Editor } from "@/components/editor/Editor";
+import { createTitle } from "@/lib/site";
 
 export const Route = createFileRoute("/editor")({
+  head: () => ({ meta: [{ title: createTitle("Editor") }] }),
   component: EditorPage,
 });
 

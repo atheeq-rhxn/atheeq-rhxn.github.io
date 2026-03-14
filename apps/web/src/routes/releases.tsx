@@ -3,8 +3,10 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { Streamdown } from "streamdown";
 import { code } from "@streamdown/code";
 import releases from "../releases.json";
+import { createTitle } from "@/lib/site";
 
 export const Route = createFileRoute("/releases")({
+  head: () => ({ meta: [{ title: createTitle("Releases") }] }),
   component: Releases,
   loader: async () => {
     return releases as GitHubRelease[];

@@ -4,6 +4,7 @@ import * as React from "react";
 
 import SearchDialog from "@/components/search";
 import appCss from "@/styles/app.css?url";
+import { siteConfig } from "@/lib/site";
 
 export const Route = createRootRoute({
   head: () => ({
@@ -16,10 +17,65 @@ export const Route = createRootRoute({
         content: "width=device-width, initial-scale=1",
       },
       {
-        title: "mangowm",
+        name: "description",
+        content: siteConfig.description,
+      },
+      {
+        name: "theme-color",
+        media: "(prefers-color-scheme: light)",
+        content: "#ffffff",
+      },
+      {
+        name: "theme-color",
+        media: "(prefers-color-scheme: dark)",
+        content: "#0A0A0A",
+      },
+      {
+        name: "robots",
+        content: "index, follow",
+      },
+      {
+        property: "og:title",
+        content: siteConfig.title,
+      },
+      {
+        property: "og:description",
+        content: siteConfig.description,
+      },
+      {
+        property: "og:type",
+        content: "website",
+      },
+      {
+        property: "og:image",
+        content: siteConfig.url + siteConfig.ogImage,
+      },
+      {
+        name: "twitter:card",
+        content: "summary_large_image",
+      },
+      {
+        name: "twitter:title",
+        content: siteConfig.title,
+      },
+      {
+        name: "twitter:description",
+        content: siteConfig.description,
+      },
+      {
+        name: "twitter:image",
+        content: siteConfig.url + siteConfig.ogImage,
+      },
+      {
+        title: siteConfig.name,
       },
     ],
-    links: [{ rel: "stylesheet", href: appCss }],
+    links: [
+      { rel: "stylesheet", href: appCss },
+      { rel: "icon", href: "/favicon.png", type: "image/png" },
+      { rel: "apple-touch-icon", href: "/apple-touch-icon.png" },
+      { rel: "canonical", href: siteConfig.url },
+    ],
   }),
   component: RootComponent,
 });

@@ -3,11 +3,13 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { HomeLayout } from "fumadocs-ui/layouts/home";
 import type { LinkItemType } from "fumadocs-ui/layouts/shared";
 import { baseOptions } from "@/lib/layout.shared";
+import { createTitle } from "@/lib/site";
 import { latestVersion } from "@/lib/latest-version";
 import { MangoLayouts } from "@/components/mango-layouts";
 import { SponsorButton } from "@/components/sponsor-button";
 
 export const Route = createFileRoute("/")({
+  head: () => ({ meta: [{ title: createTitle("Home") }] }),
   component: Home,
 });
 
