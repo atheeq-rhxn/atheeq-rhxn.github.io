@@ -14,6 +14,10 @@ import { source } from "@/lib/source";
 
 export const Route = createFileRoute("/docs/$")({
   component: Page,
+  head: ({ loaderData }) => {
+    const title = loaderData?.title ?? "Docs";
+    return { meta: [{ title: `${title} | mangowm` }] };
+  },
   loader: async ({ params }) => {
     const slugs = params._splat?.split("/") ?? [];
     const data = await loader({ data: slugs });
@@ -34,6 +38,7 @@ const loader = createServerFn({
     return {
       slugs: page.slugs,
       path: page.path,
+      title: page.data.title,
       pageTree: await source.serializePageTree(source.getPageTree()),
     };
   });
