@@ -7,7 +7,7 @@ import { defineConfig } from "vite";
 import tsConfigPaths from "vite-tsconfig-paths";
 
 export default defineConfig({
-  base: "/mango-web/",
+  base: "/",
   server: {
     port: 3000,
   },

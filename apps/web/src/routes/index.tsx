@@ -14,13 +14,13 @@ const DiscordIcon = memo(function DiscordIcon() {
   return (
     <span className="flex items-center">
       <img
-        src="/mango-web/Discord-Symbol-Black.svg"
+        src="/Discord-Symbol-Black.svg"
         alt=""
         aria-hidden="true"
         className="h-5 w-5 dark:hidden"
       />
       <img
-        src="/mango-web/Discord-Symbol-White.svg"
+        src="/Discord-Symbol-White.svg"
         alt=""
         aria-hidden="true"
         className="hidden h-5 w-5 dark:block"
