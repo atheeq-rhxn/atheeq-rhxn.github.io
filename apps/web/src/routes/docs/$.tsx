@@ -1,6 +1,5 @@
-import { createFileRoute, Link, notFound } from "@tanstack/react-router";
+import { createFileRoute, notFound } from "@tanstack/react-router";
 import { createServerFn } from "@tanstack/react-start";
-import { staticFunctionMiddleware } from "@tanstack/start-static-server-functions";
 import { useFumadocsLoader } from "fumadocs-core/source/client";
 import browserCollections from "fumadocs-mdx:collections/browser";
 import { DocsLayout } from "fumadocs-ui/layouts/docs";
@@ -9,15 +8,11 @@ import defaultMdxComponents from "fumadocs-ui/mdx";
 import { Suspense } from "react";
 
 import { LLMCopyButton, ViewOptions } from "@/components/ai/page-actions";
-import { baseOptions, gitConfig, sourceGitConfig } from "@/lib/layout.shared";
+import { baseOptions, sourceGitConfig } from "@/lib/layout.shared";
 import { source } from "@/lib/source";
 
 export const Route = createFileRoute("/docs/$")({
   component: Page,
-  head: ({ loaderData }) => {
-    const title = loaderData?.title ?? "Docs";
-    return { meta: [{ title: `${title} | mangowm` }] };
-  },
   loader: async ({ params }) => {
     const slugs = params._splat?.split("/") ?? [];
     const data = await loader({ data: slugs });
@@ -30,15 +25,12 @@ const loader = createServerFn({
   method: "GET",
 })
   .inputValidator((slugs: string[]) => slugs)
-  .middleware([staticFunctionMiddleware])
   .handler(async ({ data: slugs }) => {
     const page = source.getPage(slugs);
     if (!page) throw notFound();
 
     return {
-      slugs: page.slugs,
       path: page.path,
-      title: page.data.title,
       pageTree: await source.serializePageTree(source.getPageTree()),
     };
   });
@@ -46,15 +38,11 @@ const loader = createServerFn({
 const clientLoader = browserCollections.docs.createClientLoader({
   component(
     { toc, frontmatter, default: MDX },
-    // you can define props for the component
-    {
-      markdownUrl,
-      path,
-    }: {
-      markdownUrl: string;
-      path: string;
-    },
+    { path }: { path: string },
   ) {
+    const title = `${frontmatter.title} | mangowm`;
+    const markdownUrl = `/llms.mdx/docs/${path.replace(/\.md$/, '')}/index.mdx`;
+    
     return (
       <DocsPage
         toc={toc}
@@ -62,6 +50,8 @@ const clientLoader = browserCollections.docs.createClientLoader({
           style: "clerk",
         }}
       >
+        <title>{title}</title>
+        <meta name="description" content={frontmatter.description} />
         <DocsTitle>{frontmatter.title}</DocsTitle>
         <DocsDescription>{frontmatter.description}</DocsDescription>
         <div className="flex flex-row gap-2 items-center border-b -mt-4 pb-6">
@@ -84,13 +74,11 @@ const clientLoader = browserCollections.docs.createClientLoader({
 });
 
 function Page() {
-  const { pageTree, slugs, path } = useFumadocsLoader(Route.useLoaderData());
-  const markdownUrl = `/llms.mdx/docs/${[...slugs, "index.mdx"].join("/")}`;
+  const data = useFumadocsLoader(Route.useLoaderData());
 
   return (
-    <DocsLayout {...baseOptions()} tree={pageTree}>
-      <Link to={markdownUrl} hidden />
-      <Suspense>{clientLoader.useContent(path, { markdownUrl, path })}</Suspense>
+    <DocsLayout {...baseOptions()} tree={data.pageTree}>
+      <Suspense>{clientLoader.useContent(data.path, { path: data.path })}</Suspense>
     </DocsLayout>
   );
 }
